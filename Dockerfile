@@ -30,16 +30,24 @@ RUN mkdir -p /tmp/fonts && \
 	rm -rf fonts
 
 # Install PSCyr
-RUN bash -c 'TEXMF=`kpsewhich -expand-var='$TEXMFLOCAL'` VARTEXFONTS=`kpsewhich -expand-var='$VARTEXFONTS'` && \
+RUN TEXMF="$(kpsewhich -expand-var='$TEXMFLOCAL')" VARTEXFONTS="$(kpsewhich -expand-var='$VARTEXFONTS')" && \
 	echo "###> Installing PSCyr to '$TEXMF' folder ('$VARTEXFONTS')" && \
 	mkdir -p /tmp/fonts && \
 	cd /tmp/fonts && \
 	wget "https://github.com/senior-sigan/docker-latex/raw/master/src/PSCyr.zip" -q && \
 	unzip -q /tmp/fonts/PSCyr.zip -d /tmp/fonts && \
 	cd /tmp/fonts/PSCyr && \
-	mkdir -p $TEXMF/{tex/latex,fonts/tfm/public,fonts/vf/public,fonts/type1/public,fonts/afm/public,doc/fonts,fonts/enc,fonts/map/dvips}/pscyr  && \
+	mkdir -p $TEXMF/tex/latex/pscyr && \
+	mkdir -p $TEXMF/fonts/tfm/public/pscyr && \
+	mkdir -p $TEXMF/fonts/vf/public/pscyr && \
+	mkdir -p $TEXMF/fonts/type1/public/pscyr && \
+	mkdir -p $TEXMF/fonts/afm/public/pscyr && \
+	mkdir -p $TEXMF/doc/fonts/pscyr && \
+	mkdir -p $TEXMF/fonts/enc/pscyr && \
+	mkdir -p $TEXMF/fonts/map/dvips/pscyr && \
 	# tweak from http://welinux.ru/post/3200/
-	mkdir -p fonts/{map,enc} && \
+	mkdir -p fonts/map && \
+	mkdir -p fonts/enc && \
 	mv dvips/pscyr/*.map fonts/map/ && \
 	mv dvips/pscyr/*.enc fonts/enc/ && \
 	cp fonts/enc/* $TEXMF/fonts/enc/pscyr && \
@@ -60,7 +68,7 @@ RUN bash -c 'TEXMF=`kpsewhich -expand-var='$TEXMFLOCAL'` VARTEXFONTS=`kpsewhich 
 	echo "###> Running updmap" && \
 	updmap-sys && \
 	cd ../.. && \
-	rm -rf fonts'
+	rm -rf fonts
 	
 
 # update font index

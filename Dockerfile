@@ -15,8 +15,8 @@ RUN sed -i'.bak' 's/$/ contrib/' /etc/apt/sources.list && \
 # Install Fira Sans fonts
 RUN mkdir -p /tmp/fonts && \
 	cd /tmp/fonts && \
-	wget "https://bboxtype.com/downloads/Fira/Download_Folder_FiraSans_4301.zip" -q && \
-	wget "https://bboxtype.com/downloads/Fira/Fira_Mono_3_2.zip" -q && \
+	wget "https://carrois.com/downloads/Fira/Download_Folder_FiraSans_4301.zip" -q && \
+	wget "https://carrois.com/downloads/Fira/Fira_Mono_3_2.zip" -q && \
 	unzip -q Download_Folder_FiraSans_4301.zip && \
 	unzip -q Fira_Mono_3_2.zip && \
 	mkdir -p /usr/share/fonts/truetype/FiraSans && \
